@@ -1,5 +1,5 @@
 import 'dotenv/config';
-var cors = require('cors');
+import cors from 'cors';
 import express from 'express';
 import {
   InteractionType,
