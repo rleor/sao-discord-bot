@@ -80,3 +80,10 @@ export const CHALLENGE_COMMAND = {
   ],
   type: 1,
 };
+
+
+export const WALLET_VERIFY_COMMAND = {
+  name: 'verify-wallet',
+  description: 'verify your ethereum wallet command',
+  type: 1,
+}

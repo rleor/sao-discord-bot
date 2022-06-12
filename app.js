@@ -12,6 +12,7 @@ import { getShuffledOptions, getResult } from './game.js';
 import {
   CHALLENGE_COMMAND,
   TEST_COMMAND,
+  WALLET_VERIFY_COMMAND,
   HasGuildCommands,
 } from './commands.js';
 
@@ -54,6 +55,15 @@ app.post('/interactions', async function (req, res) {
         data: {
           // Fetches a random emoji to send from a helper function
           content: 'hello world ' + getRandomEmoji(),
+        },
+      });
+    }
+    if (name === 'verify-wallet') {
+      const userId = req.body.member.user.id;
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: `http://localhost:3001/?user=${userId}`,
         },
       });
     }
@@ -182,5 +192,6 @@ app.listen(PORT, () => {
   HasGuildCommands(process.env.APP_ID, process.env.GUILD_ID, [
     TEST_COMMAND,
     CHALLENGE_COMMAND,
+    WALLET_VERIFY_COMMAND,
   ]);
 });
