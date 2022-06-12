@@ -11,6 +11,7 @@
   "author": "Shay DeWael",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "discord-interactions": "^3.2.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",

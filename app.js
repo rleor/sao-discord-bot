@@ -1,4 +1,5 @@
 import 'dotenv/config';
+var cors = require('cors');
 import express from 'express';
 import {
   InteractionType,
@@ -21,6 +22,7 @@ const app = express();
 // Get port, or default to 3000
 const PORT = process.env.PORT || 3000;
 // Parse request body and verifies incoming requests using discord-interactions package
+app.use(cors());
 app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 
 // Store for in-progress games. In production, you'd want to use a DB
