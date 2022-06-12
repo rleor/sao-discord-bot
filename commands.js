@@ -60,7 +60,7 @@ function createCommandChoices() {
 
 // Simple test command
 export const TEST_COMMAND = {
-  name: 'test',
+  name: 'verify',
   description: 'Basic guild command',
   type: 1,
 };
@@ -86,4 +86,4 @@ export const WALLET_VERIFY_COMMAND = {
   name: 'verify-wallet',
   description: 'verify your ethereum wallet command',
   type: 1,
-}
+};
