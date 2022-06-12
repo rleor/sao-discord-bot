@@ -28,6 +28,7 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 // Store for in-progress games. In production, you'd want to use a DB
 const activeGames = {};
 
+app.options('verify', cors());
 app.post("/verify", async function(req, res) {
   const { discordId, role } = req.body;
   var endpoint = `applications/${process.env.APP_ID}/guilds/${process.env.GUILD_ID}/members/${discordId}/roles/${role}`
