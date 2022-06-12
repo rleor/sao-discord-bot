@@ -48,7 +48,7 @@ app.post('/interactions', async function (req, res) {
     const { name } = data;
 
     // "test" guild command
-    if (name === 'verify') {
+    if (name === 'test') {
       // Send a message into the channel where command was triggered from
       return res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
