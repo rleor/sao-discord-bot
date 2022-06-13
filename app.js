@@ -28,17 +28,22 @@ app.all('*',function (req, res, next) {
 });
 // verify api do not verify public key.
 app.post("/verify", async function(req, res) {
-  console.log(req.body);
+  const { discordUserId, roles } = req.body;
 
-  // var r = await DiscordRequest(`guilds/${process.env.GUILD_ID}/roles`, {method: 'get'})
-  // const discordRoles = await r.json();
-  // console.log(discordRoles);
-  // discordRoles.array.forEach(r => {
-  // });
+  var r = await DiscordRequest(`guilds/${process.env.GUILD_ID}/roles`, {method: 'get'})
+  const discordRoles = await r.json();
+  console.log("all discord roles:", discordRoles);
+  discordRoles.array.forEach(dr => {
+    roles.forEach(r => {
+      if (r.toLowerCase() === dr.name.toLowerCase()) {
+        var endpoint = `guilds/${process.env.GUILD_ID}/members/${discordUserId}/roles/${dr.id}`
+        // TODO: discord request error handling.
+        console.log("grant role: ", endpoint);
+        await DiscordRequest(endpoint, {method: 'put'});
+      }
+    });
+  });
 
-  // var endpoint = `guilds/${process.env.GUILD_ID}/members/${discordId}/roles/${role}`
-  // // TODO: discord request error handling.
-  // await DiscordRequest(endpoint, {method: 'put'});
   return res.send(200);
 });
 
