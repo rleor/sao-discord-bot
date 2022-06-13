@@ -26,16 +26,16 @@ app.all('*',function (req, res, next) {
     next();
   }
 });
-app.use(express.json());
+//app.use(express.json());
 // verify api do not verify public key.
-app.post("/verify", async function(req, res) {
+app.post("/verify", express.json(), async function(req, res) {
   const { discordUserId, roles } = req.body;
 
   var r = await DiscordRequest(`guilds/${process.env.GUILD_ID}/roles`, {method: 'get'})
   const discordRoles = await r.json();
   console.log("all discord roles:", discordRoles);
-  discordRoles.array.forEach(dr => {
-    roles.forEach(r => {
+  discordRoles.forEach(dr => {
+    roles.forEach(async r => {
       if (r.toLowerCase() === dr.name.toLowerCase()) {
         var endpoint = `guilds/${process.env.GUILD_ID}/members/${discordUserId}/roles/${dr.id}`
         // TODO: discord request error handling.
@@ -52,7 +52,6 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 
 
 // Store for in-progress games. In production, you'd want to use a DB
-const activeGames = {};
 
 /**
  * Interactions endpoint URL where Discord will send HTTP requests
@@ -60,6 +59,7 @@ const activeGames = {};
 app.post('/interactions', async function (req, res) {
   // Interaction type and data
   const { type, id, data } = req.body;
+        console.log("interactions");
 
   /**
    * Handle verification requests
@@ -80,7 +80,7 @@ app.post('/interactions', async function (req, res) {
       return res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          content: `http://localhost:3001/?user=${userId}`,
+          content: `${process.env.VERIFY_BASE_URL}?user=${userId}`,
         },
       });
     }
