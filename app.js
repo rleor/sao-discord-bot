@@ -26,6 +26,7 @@ app.all('*',function (req, res, next) {
     next();
   }
 });
+app.use(express.json());
 // verify api do not verify public key.
 app.post("/verify", async function(req, res) {
   const { discordUserId, roles } = req.body;
