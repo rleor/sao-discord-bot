@@ -80,7 +80,11 @@ app.post('/interactions', async function (req, res) {
       return res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          content: `${process.env.VERIFY_BASE_URL}?user=${userId}`,
+          type: 2,
+          label: "connect",
+          style: 5,
+          url: `${process.env.VERIFY_BASE_URL}?user=${userId}`,
+          //content: `${process.env.VERIFY_BASE_URL}?user=${userId}`,
         },
       });
     }
