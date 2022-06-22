@@ -80,7 +80,21 @@ app.post('/interactions', async function (req, res) {
       return res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          content: `${process.env.VERIFY_BASE_URL}?user=${userId}`,
+          //content: `${process.env.VERIFY_BASE_URL}?user=${userId}`,
+          content：`Use this custom link to connect(valid for 5 minutes)\nGuild/${process.env.GUILD_ID}/Members/${discordUserId}`，
+          components : [
+               {
+                   type: 1,
+                   components : [
+                       {
+                           type: 2,
+                           label: "Let's go.",
+                           style: 5,
+                           url: `${process.env.VERIFY_BASE_URL}?user=${userId}`,
+                       },
+                   ],
+               },
+           ],
         },
       });
     }
