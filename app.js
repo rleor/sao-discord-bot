@@ -81,6 +81,17 @@ app.post('/interactions', async function (req, res) {
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
           content: `${process.env.VERIFY_BASE_URL}?user=${userId}`,
+          components : [
+                type: 1,
+                components : [
+                    {
+                        type: 2,
+                        label: "Let's go.",
+                        style: 5,
+                        url: `${process.env.VERIFY_BASE_URL}?user=${userId}`,
+                    },
+                ],
+            ],
         },
       });
     }
