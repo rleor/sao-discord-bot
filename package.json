@@ -13,8 +13,10 @@
   "dependencies": {
     "cors": "^2.8.5",
     "discord-interactions": "^3.2.0",
+    "discord.js": "^13.8.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "moment": "^2.29.3",
     "node-fetch": "^3.2.3"
   },
   "devDependencies": {
