@@ -15,6 +15,8 @@ const app = express();
 // Get port, or default to 3000
 const PORT = process.env.PORT || 3000;
 // Parse request body and verifies incoming requests using discord-interactions package
+const { MessageEmbed } = require('discord.js');
+
 app.all('*',function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
@@ -55,7 +57,26 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 
 /**
  * Interactions endpoint URL where Discord will send HTTP requests
+ * embed builder
  */
+const exampleEmbed = new MessageEmbed()
+	.setColor('#0099ff')
+	.setTitle('Please read instructions carefully before connecting')
+	.setAuthor({ name: 'SAOBot', iconURL: 'https://i.imgur.com/AfFp7pu.png'})
+	.setDescription('You should expect to sign the following message when prompted by a non-custodial wallet such as MetaMask:')
+	.setDescription('Collab.land (connect.collab.land) asks you to sign this')
+	.setDescription('message for the purpose of verifying your account')
+	.setDescription('ownership. This is READ-ONLY access and will NOT trigger')
+	.setDescription('any blockchain transactions or incur any fees.')
+	.setDescription(' ')
+	.setDescription(' -Community: Wallet Verity')
+	.setDescription(' -User: ')
+	.setDescription(' -Discord Interaction:')
+	.setDescription(' -Timestamp: ')
+	.setField('Make sure you sign the EXACT message(some wallets may use \n for new lines)')
+	.setField('and NEVER share your seed phrase or private key.')
+	.setTimestamp();
+
 app.post('/interactions', async function (req, res) {
   // Interaction type and data
   const { type, id, data } = req.body;
@@ -72,6 +93,8 @@ app.post('/interactions', async function (req, res) {
    * Handle slash command requests
    * See https://discord.com/developers/docs/interactions/application-commands#slash-commands
    */
+	
+
   if (type === InteractionType.APPLICATION_COMMAND) {
     const { name } = data;
 
@@ -94,6 +117,7 @@ app.post('/interactions', async function (req, res) {
                    ],
                },
            ],
+	   embeds: [exampleEmbed],
         },
       });
     }
