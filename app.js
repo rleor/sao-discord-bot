@@ -110,6 +110,7 @@ app.post('/interactions', async function (req, res) {
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
           content: `Use this custom link to connect\nGuild: ${process.env.GUILD_ID} Members: ${userId}`,
+	  flags: 64,//InteractionResponseFlags.EPHEMERAL,
           components : [
                {
                    type: 1,
